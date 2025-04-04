@@ -27,7 +27,7 @@ print(db.Atletas.aggregate([
 ]));
 
 
-// 5. MATCH + 7. AVG
+// 5. MATCH + 7. GTE
 
 print("---------------------")
 print("5. MATCH + 7. GTE: Lista todos os atletas com salário maior que 10.000")
@@ -77,9 +77,9 @@ print(db.Tecnicos.find({ telefone: { $exists: false } }));
 // 16. $WHERE + 18. FUNCTION
 
 print("---------------------");
-print("16. $WHERE: Retorna atletas com salário menor que 8000 por meio de FUNCTION");
+print("16. $WHERE: Retorna atletas com salário menor que 10000 por meio de FUNCTION");
 
-print(db.Atletas.find({ $where: function() { return this.salario < 80000; }}));
+print(db.Atletas.find({ $where: function() { return this.salario < 10000; }}));
 
 // 17. MAPREDUCE
 
@@ -127,8 +127,29 @@ print(db.Atletas.find({ $text: { $search: "Andrade" } }));
 // 24. FILTER
 print("---------------------");
 print("24. FILTER: Filtra atletas com peso acima de 115 kg");
+printjson(db.Atletas.aggregate([
+    {
+        $project: {
+            _id: 0,
+            nome: 1,
+            peso_filtrado: {
+                $filter: {
+                    input: ["$peso"],
+                    as: "p",
+                    cond: { $eq: ["$$p", 100] }
+                }
+            }
+        }
+    },
+    { $match: { peso_filtrado: { $ne: [] } } },  
+    { $project: { nome: 1 } }
+]).toArray());
 
-print(db.Atletas.find({ peso: { $gte: 115 } }));
+
+
+
+
+
 
 // 25. UPDATE + 26. SAVE (UPDATEONE/UPDATEMANY)
 print("---------------------");
