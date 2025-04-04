@@ -15,7 +15,7 @@ Uma instância de Técnico, semelhante à Atleta, possui CPF (que em um modelo r
 Uma instância de Estatística, possui codigo (que em um modelo relacional seria a chave primária), quantidade de chutes ao gol, quantidade de gols, quantidade de passes,
 quantidade de cartões amarelos, quantidade de cartões vermelhos.
 
-Uma instância de Jogo, possui codigo (que em um modelo relacional seria a chave primária), tempo de duração e data.
+Uma instância de Jogo, possui codigo (que em um modelo relacional seria a chave primária), jogadores que nele jogaram, tempo de duração e data.
 
 Um script de Python foi utilizado para o povoamento
 */
