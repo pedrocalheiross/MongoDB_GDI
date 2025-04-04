@@ -179,8 +179,6 @@ print("29. LOOKUP: Relaciona atletas com seus respectivos técnicos");
 
 print(db.Atletas.aggregate([{$lookup: { from: "Tecnicos", localField: "tecnico", foreignField: "CPF", as: "tecnico_info"}}]));
 
-print(resultado);
-
 // 30. FINDONE
 print("---------------------");
 print("30. FINDONE: Busca um jogo específico");
