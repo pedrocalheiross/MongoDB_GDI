@@ -127,28 +127,7 @@ print(db.Atletas.find({ $text: { $search: "Andrade" } }));
 // 24. FILTER
 print("---------------------");
 print("24. FILTER: Filtra atletas com peso acima de 115 kg");
-printjson(db.Atletas.aggregate([
-    {
-        $project: {
-            _id: 0,
-            nome: 1,
-            peso_filtrado: {
-                $filter: {
-                    input: ["$peso"],
-                    as: "p",
-                    cond: { $eq: ["$$p", 100] }
-                }
-            }
-        }
-    },
-    { $match: { peso_filtrado: { $ne: [] } } },  
-    { $project: { nome: 1 } }
-]).toArray());
-
-
-
-
-
+print(db.Atletas.aggregate([{ $project: { _id: 0, nome: 1, peso_filtrado: { $filter: { input: ["$peso"], as: "p", cond: { $eq: ["$$p", 100] } } } } }, { $match: { peso_filtrado: { $ne: [] } } }, { $project: { nome: 1 } }]));
 
 
 // 25. UPDATE + 26. SAVE (UPDATEONE/UPDATEMANY)
@@ -169,8 +148,6 @@ db.Tecnicos.updateMany(
     { $mul: { salario: 1.05 } }
 );
 print(db.Tecnicos.find().limit(5));
-
-print(db.Jogos.findOne({ codigo: "J123" }));
 
 // 27. RENAMECOLLECTION
 print("---------------------");
