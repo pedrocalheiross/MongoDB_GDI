@@ -30,7 +30,7 @@ print(db.Atletas.aggregate([
 // 5. MATCH + 7. AVG
 
 print("---------------------")
-print("5. SIZE + 7. GTE: Lista todos os atletas com salário maior que 10.000")
+print("5. MATCH + 7. GTE: Lista todos os atletas com salário maior que 10.000")
 
 print(db.Atletas.aggregate([
     { $match: { salario: { $gte: 10000 } } }
@@ -73,13 +73,6 @@ print("13. EXISTS: Primeiro procura pelos cinco primeiros técnicos que possuem 
 print(db.Tecnicos.find({ telefone: { $exists: true } }).limit(5));
 print("---------------------")
 print(db.Tecnicos.find({ telefone: { $exists: false } }));
-
-// 16. WHERE
-
-print("---------------------")
-print("13. EXISTS: Primeiro procura pelos cinco primeiros técnicos que possuem telefone, e depois pelos que não (nenhum)")
-
-db.Atletas.find({ $where: "this.nome.startsWith('A')" });
 
 // 16. $WHERE + 18. FUNCTION
 
